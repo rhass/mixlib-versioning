@@ -1,6 +1,6 @@
 #
 # Author:: Seth Chisamore (<schisamo@chef.io>)
-# Copyright:: Copyright (c) 2013 Opscode, Inc.
+# Copyright:: Copyright (c) 2013,2017 Opscode, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -169,7 +169,7 @@ module Mixlib
       #   {Format} instance
       # @todo create a proper serialization abstraction
       def to_semver_string
-        s = [@major, @minor, @patch].join(".")
+        s = [@major, @minor, @patch].map(&:to_i).join(".")
         s += "-#{@prerelease}" if @prerelease
         s += "+#{@build}" if @build
         s
@@ -186,7 +186,7 @@ module Mixlib
       #   {Format} instance
       # @todo create a proper serialization abstraction
       def to_rubygems_string
-        s = [@major, @minor, @patch].join(".")
+        s = [@major, @minor, @patch].map(&:to_i).join(".")
         s += ".#{@prerelease}" if @prerelease
         s
       end

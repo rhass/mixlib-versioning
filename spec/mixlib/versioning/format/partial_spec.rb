@@ -53,7 +53,7 @@ describe Mixlib::Versioning::Format::Partial do
       }
     end
     let(:min) { "1" }
-    let(:max) { "2" }
+    let(:max) { "2.0" }
   end # it_has_behavior
 
   it_has_behavior "filterable" do
@@ -69,13 +69,17 @@ describe Mixlib::Versioning::Format::Partial do
         12
       }
     end
+    # TODO: Make it so we can test against full version strings of different
+    # class types.
     let(:release_versions) do
       %w{
-        1
+        2.0
+        1.1
+        1.0
         1.0
         2.0
         1.2
-        12
+        12.0
         12.0
       }
     end
