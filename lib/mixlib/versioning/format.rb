@@ -20,6 +20,7 @@ require "mixlib/versioning/format/git_describe"
 require "mixlib/versioning/format/opscode_semver"
 require "mixlib/versioning/format/rubygems"
 require "mixlib/versioning/format/semver"
+require "mixlib/versioning/format/partial"
 
 module Mixlib
   class Versioning
@@ -30,15 +31,15 @@ module Mixlib
     # @!attribute [r] minor
     #   @return [Integer] minor identifier
     # @!attribute [r] patch
-    #   @return [Integer] patch identifier
+    #   @return [Integer, nil] patch identifier
     # @!attribute [r] prerelease
-    #   @return [String] pre-release identifier
+    #   @return [String, nil] pre-release identifier
     # @!attribute [r] build
-    #   @return [String] build identifier
+    #   @return [String, nil] build identifier
     # @!attribute [r] iteration
-    #   @return [String] build interation
+    #   @return [String, nil] build interation
     # @!attribute [r] input
-    #   @return [String] original input version string that was parsed
+    #   @return [String, nil] original input version string that was parsed
     class Format
       include Comparable
 
@@ -68,6 +69,7 @@ module Mixlib
           when "opscode_semver" then Mixlib::Versioning::Format::OpscodeSemVer
           when "git_describe" then Mixlib::Versioning::Format::GitDescribe
           when "rubygems" then Mixlib::Versioning::Format::Rubygems
+          when "partial" then Mixlib::Versioning::Format::Partial
           else
             msg = "'#{format_type}' is not a supported Mixlib::Versioning format"
             raise Mixlib::Versioning::UnknownFormatError, msg
